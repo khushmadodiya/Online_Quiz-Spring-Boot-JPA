@@ -5,9 +5,11 @@ import com.example.OnlineQuiz_JPA.model.Quiz;
 import com.example.OnlineQuiz_JPA.model.Student;
 import com.example.OnlineQuiz_JPA.service.MarksService;
 import com.example.OnlineQuiz_JPA.service.StudentService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +22,22 @@ public class StudentController {
     StudentService studentService;
     @Autowired
     MarksService marksService;
+
+    @GetMapping("/")
+    @ResponseBody
+    String hello(HttpServletRequest http){
+        return "hello Khushvant Madodiya jii"+http.getSession().getId();
+    }
+    @GetMapping("csrf")
+    CsrfToken token(HttpServletRequest request){
+      return (CsrfToken) request.getAttribute("_csrf");
+    }
+    @GetMapping("student")
+    List<Student> getAllStudent(){
+        return studentService.getAllStudent();
+    }
+
+
     @GetMapping("student/{id}")
     ResponseEntity<Student> getStudentWithId(@PathVariable("id") String id){
        try {

@@ -2,9 +2,11 @@ package com.example.OnlineQuiz_JPA.Dao;
 
 import com.example.OnlineQuiz_JPA.model.Marks;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface MarksRepository extends CrudRepository<Marks,String> {
     List<Marks> findByStudent_Uid(String studentId);
 
